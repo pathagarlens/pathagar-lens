@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pathagar Lens - Fact Check</title>
+
+<style>
+body{
+    font-family: 'Segoe UI', sans-serif;
+    background:#f4f6fb;
+    margin:0;
+}
+
+header{
+    background:#0a2540;
+    color:white;
+    padding:15px 30px;
+    font-size:20px;
+    font-weight:bold;
+    position:sticky;
+    top:0;
+}
+
+.container{
+    max-width:1000px;
+    margin:40px auto;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+input, select{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+button{
+    padding:12px 25px;
+    background:#0a2540;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#144272;
+}
+
+.card{
+    background:#ffffff;
+    padding:18px;
+    margin-bottom:18px;
+    border-radius:10px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.05);
+}
+
+.badge{
+    padding:4px 10px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.high{
+    background:#d4edda;
+    color:#155724;
+}
+
+.low{
+    background:#f8d7da;
+    color:#721c24;
+}
+
+.verdict{
+    padding:12px;
+    margin-bottom:20px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.true{background:#d4edda;color:#155724;}
+.mixed{background:#fff3cd;color:#856404;}
+.review{background:#f8d7da;color:#721c24;}
+
+footer{
+    margin-top:60px;
+    text-align:center;
+    padding:20px;
+    background:#0a2540;
+    color:white;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+Pathagar Lens - Fact Verification System
+</header>
+
+<div class="container">
+
+<input type="text" id="claimInput" placeholder="Enter claim (e.g., accident India)">
+
+<select id="filter">
+  <option value="all">All Sources</option>
+  <option value="high">High Credibility Only</option>
+</select>
+
+<button onclick="search()">Verify Claim</button>
+
+<div id="verdictBox"></div>
+<div id="result"></div>
+
+<button id="loadMoreBtn" onclick="loadMore()" style="display:none;">
+Load More
+</button>
+
+</div>
+
+<footer>
+© 2026 Pathagar Lens
+</footer>
+
+<script>
+
+let allResults = [];
+let visibleCount = 0;
+const batchSize = 5;
+
+async function search(){
+
+  const claim = document.getElementById("claimInput").value.trim();
+  if(!claim) return alert("Enter claim");
+
+  document.getElementById("result").innerHTML = "Loading...";
+  document.getElementById("verdictBox").innerHTML = "";
+  document.getElementById("loadMoreBtn").style.display="none";
+
+  const response = await fetch("http://localhost:5000/api/fact/check",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({claim})
+  });
+
+  const data = await response.json();
+
+  allResults = data.results || [];
+  visibleCount = 0;
+
+  showVerdict();
+  document.getElementById("result").innerHTML="";
+  displayMore();
+}
+
+function showVerdict(){
+
+  let highCount = allResults.filter(r=>r.credibility==="High").length;
+
+  let verdictText = "Needs Verification";
+  let verdictClass = "review";
+
+  if(highCount >= 3){
+    verdictText = "Likely True";
+    verdictClass = "true";
+  } else if(highCount >= 1){
+    verdictText = "Mixed Information";
+    verdictClass = "mixed";
+  }
+
+  document.getElementById("verdictBox").innerHTML = `
+    <div class="verdict ${verdictClass}">
+      Overall Verdict: ${verdictText}
+    </div>
+  `;
+}
+
+function displayMore(){
+
+  const filter = document.getElementById("filter").value;
+  const container = document.getElementById("result");
+
+  let filtered = allResults;
+
+  if(filter==="high"){
+    filtered = allResults.filter(r=>r.credibility==="High");
+  }
+
+  const nextBatch = filtered.slice(visibleCount, visibleCount + batchSize);
+
+  nextBatch.forEach(article=>{
+    container.innerHTML+=`
+      <div class="card">
+        <h4>${article.title}</h4>
+        <span class="badge ${article.credibility==="High"?"high":"low"}">
+          ${article.credibility}
+        </span>
+        <br><br>
+        <a href="${article.link}" target="_blank">Read Full Article</a>
+      </div>
+    `;
+  });
+
+  visibleCount += batchSize;
+
+  if(visibleCount < filtered.length){
+    document.getElementById("loadMoreBtn").style.display="block";
+  } else {
+    document.getElementById("loadMoreBtn").style.display="none";
+  }
+}
+
+function loadMore(){
+  displayMore();
+}
+
+document.getElementById("filter").addEventListener("change", ()=>{
+  visibleCount = 0;
+  document.getElementById("result").innerHTML="";
+  displayMore();
+});
+
+</script>
+
+</body>
+</html>
