@@ -1,34 +1,111 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pathagar Lens - Fact Check</title>
+<title>Pathagar Len's - Fact Check</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-body{
-    font-family: 'Segoe UI', sans-serif;
-    background:#f4f6fb;
+*{
     margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
 }
 
+body{
+    background:#f4f6fb;
+    color:#333;
+}
+
+/* HEADER (Same as index.html) */
 header{
     background:#0a2540;
     color:white;
-    padding:15px 30px;
-    font-size:20px;
-    font-weight:bold;
+    padding:15px 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
     position:sticky;
     top:0;
+    z-index:1000;
 }
 
+.logo-container{
+    display:flex;
+    align-items:center;
+}
+
+.logo-img{
+    width:34px;
+    height:34px;
+    margin-right:10px;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:600;
+    text-decoration:none;
+    color:white;
+}
+
+.menu-wrapper{
+    display:flex;
+    align-items:center;
+    cursor:pointer;
+    font-size:15px;
+    user-select:none;
+    position:relative;
+}
+
+.menu-wrapper span{
+    margin-left:6px;
+}
+
+.menu-icon{
+    font-size:22px;
+}
+
+.dropdown{
+    position:absolute;
+    right:0;
+    top:45px;
+    background:white;
+    width:220px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+    border-radius:8px;
+    display:none;
+    flex-direction:column;
+    overflow:hidden;
+}
+
+.dropdown a{
+    padding:12px 18px;
+    text-decoration:none;
+    color:#0a2540;
+    font-size:14px;
+    transition:0.3s;
+}
+
+.dropdown a:hover{
+    background:#f1f4f8;
+}
+
+/* FACT SECTION */
 .container{
     max-width:1000px;
-    margin:40px auto;
+    margin:50px auto;
     background:white;
     padding:30px;
     border-radius:12px;
     box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+.container h2{
+    margin-bottom:20px;
+    color:#0a2540;
 }
 
 input, select{
@@ -88,12 +165,52 @@ button:hover{
 .mixed{background:#fff3cd;color:#856404;}
 .review{background:#f8d7da;color:#721c24;}
 
+/* FOOTER (Same as index.html) */
 footer{
-    margin-top:60px;
-    text-align:center;
-    padding:20px;
     background:#0a2540;
     color:white;
+    padding:40px 20px;
+    margin-top:60px;
+}
+
+.footer-container{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    max-width:1100px;
+    margin:auto;
+}
+
+.footer-section{
+    margin:15px 0;
+}
+
+.footer-section h4{
+    margin-bottom:12px;
+    font-weight:600;
+}
+
+.footer-section a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+    margin-bottom:6px;
+}
+
+.footer-bottom{
+    text-align:center;
+    margin-top:25px;
+    font-size:14px;
+    border-top:1px solid rgba(255,255,255,0.2);
+    padding-top:15px;
+}
+
+.footer-extra{
+    text-align:center;
+    font-size:13px;
+    margin-top:10px;
+    opacity:0.85;
 }
 </style>
 </head>
@@ -101,10 +218,28 @@ footer{
 <body>
 
 <header>
-Pathagar Lens - Fact Verification System
+    <div class="logo-container">
+        <img src="mainlogo.jpg" class="logo-img" alt="Logo">
+        <a href="index.html" class="logo">Pathagar Len's</a>
+    </div>
+
+    <div class="menu-wrapper" id="menuToggle">
+        <div class="menu-icon">⋮</div>
+        <span>Menu</span>
+        <div class="dropdown" id="menu">
+            <a href="index.html">Home</a>
+            <a href="fact.html">Fact Check</a>
+            <a href="books.html">Books</a>
+            <a href="research.html">Research</a>
+            <a href="#">User Login</a>
+            <a href="#" style="font-weight:600; color:#c0392b;">Admin Login</a>
+        </div>
+    </div>
 </header>
 
 <div class="container">
+
+<h2>Fact Verification System</h2>
 
 <input type="text" id="claimInput" placeholder="Enter claim (e.g., accident India)">
 
@@ -125,11 +260,68 @@ Load More
 </div>
 
 <footer>
-© 2026 Pathagar Lens
+  <div class="footer-container">
+    <div class="footer-section">
+      <h4>Menu</h4>
+      <a href="index.html">Home</a>
+      <a href="fact.html">Fact Check</a>
+      <a href="books.html">Books</a>
+      <a href="research.html">Research</a>
+      <a href="#">User Login</a>
+      <a href="#">Admin Login</a>
+    </div>
+
+    <div class="footer-section">
+      <h4>Information</h4>
+      <a href="#">About Us</a>
+      <a href="#">Contact</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms & Conditions</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © <span id="year"></span> Pathagar Len's Fully Digital Library. All rights reserved.
+  </div>
+
+  <div class="footer-extra">
+    Last Live Update: <span id="liveDate"></span> |
+    Design by Paradip Sen Roy |
+    Total Visitors: <span id="visitCount"></span>
+  </div>
 </footer>
 
 <script>
 
+/* MENU */
+const menuToggle = document.getElementById("menuToggle");
+const menu = document.getElementById("menu");
+
+menuToggle.addEventListener("click", function(e){
+    e.stopPropagation();
+    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+});
+
+document.addEventListener("click", function(){
+    menu.style.display = "none";
+});
+
+menu.addEventListener("click", function(e){
+    e.stopPropagation();
+});
+
+/* Footer Dynamic Info */
+document.getElementById("year").textContent = new Date().getFullYear();
+document.getElementById("liveDate").textContent = new Date().toLocaleString();
+
+if(!localStorage.getItem("visitCount")){
+    localStorage.setItem("visitCount", 1);
+}else{
+    localStorage.setItem("visitCount", parseInt(localStorage.getItem("visitCount")) + 1);
+}
+document.getElementById("visitCount").textContent = localStorage.getItem("visitCount");
+
+/* FACT SYSTEM */
 let allResults = [];
 let visibleCount = 0;
 const batchSize = 5;
