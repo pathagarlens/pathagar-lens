@@ -34,15 +34,22 @@ header{
 }
 
 /* LOGO */
+.logo-container{
+    display:flex;
+    align-items:center;
+}
+
+.logo-img{
+    width:34px;
+    height:34px;
+    margin-right:10px;
+}
+
 .logo{
     font-size:22px;
     font-weight:600;
     text-decoration:none;
     color:white;
-}
-
-.logo:hover{
-    opacity:0.85;
 }
 
 /* MENU */
@@ -91,9 +98,20 @@ header{
 /* HERO */
 .hero{
     text-align:center;
-    padding:100px 20px;
+    padding:110px 20px;
     background:linear-gradient(to right,#0a2540,#144272);
     color:white;
+}
+
+.badge{
+    display:inline-block;
+    background:#ffffff;
+    color:#0a2540;
+    padding:6px 14px;
+    font-size:13px;
+    border-radius:20px;
+    margin-bottom:20px;
+    font-weight:600;
 }
 
 .hero h1{
@@ -144,23 +162,45 @@ header{
     transform:translateY(-8px);
 }
 
-.feature-box h3{
+/* HOW SECTION */
+.how-section{
+    background:#ffffff;
+    padding:90px 20px;
+    text-align:center;
+}
+
+.how-section h2{
+    font-size:30px;
+    margin-bottom:50px;
     color:#0a2540;
+}
+
+.how-container{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.how-box{
+    width:320px;
+    margin:20px;
+    padding:30px;
+    background:#f4f7fb;
+    border-radius:10px;
+    text-align:left;
+}
+
+.how-box h4{
     margin-bottom:15px;
-}
-
-.feature-box p{
-    font-size:14px;
-    margin-bottom:20px;
-}
-
-.feature-box a{
-    text-decoration:none;
     color:#144272;
-    font-weight:600;
 }
 
-/* FOOTER */
+.how-box p{
+    font-size:14px;
+    line-height:1.6;
+}
+
+/* FOOTER (Original Style Preserved) */
 footer{
     background:#0a2540;
     color:white;
@@ -206,13 +246,18 @@ footer{
     padding-top:15px;
 }
 
+/* EXTRA SMALL INFO STRIP */
+.footer-extra{
+    text-align:center;
+    font-size:13px;
+    margin-top:10px;
+    opacity:0.85;
+}
+
 /* MOBILE */
 @media(max-width:768px){
     .hero h1{
         font-size:28px;
-    }
-    .hero p{
-        font-size:15px;
     }
     .footer-container{
         flex-direction:column;
@@ -225,13 +270,14 @@ footer{
 <body>
 
 <header>
-    <!-- LOGO clickable -->
-    <a href="index.html" class="logo">Knowledge Hub</a>
+    <div class="logo-container">
+        <img src="logo.png" class="logo-img" alt="Logo">
+        <a href="index.html" class="logo">Knowledge Hub</a>
+    </div>
 
     <div class="menu-wrapper" id="menuToggle">
         <div class="menu-icon">⋮</div>
         <span>Menu</span>
-
         <div class="dropdown" id="menu">
             <a href="index.html">Home</a>
             <a href="fact.html">Fact Check</a>
@@ -244,6 +290,7 @@ footer{
 </header>
 
 <section class="hero">
+    <div class="badge">✔ Trusted Digital Knowledge Platform</div>
     <h1>Reliable Knowledge. Smarter Research.</h1>
     <p>Verify information, discover meaningful books, and access open research with confidence.</p>
     <button onclick="location.href='index.html'">Start Your Journey</button>
@@ -253,19 +300,32 @@ footer{
     <div class="feature-box">
         <h3>Fact Verification</h3>
         <p>Analyze claims using trusted and verified information sources.</p>
-        <a href="fact.html">Access Fact Check</a>
     </div>
-
     <div class="feature-box">
         <h3>Smart Book Discovery</h3>
         <p>Find relevant books based on topic meaning and interest.</p>
-        <a href="#">Find Books</a>
     </div>
-
     <div class="feature-box">
         <h3>Research Tracking</h3>
         <p>Track open access research papers with structured filtering.</p>
-        <a href="#">View Research</a>
+    </div>
+</section>
+
+<section class="how-section">
+    <h2>How It Works</h2>
+    <div class="how-container">
+        <div class="how-box">
+            <h4>Fact Verification</h4>
+            <p>Enter a claim. The system scans trusted news sources and generates credibility-based results.</p>
+        </div>
+        <div class="how-box">
+            <h4>Smart Book Discovery</h4>
+            <p>Books are suggested using topic meaning analysis and structured categorization.</p>
+        </div>
+        <div class="how-box">
+            <h4>Research Tracking</h4>
+            <p>Open access research is indexed and filtered for easier discovery and academic use.</p>
+        </div>
     </div>
 </section>
 
@@ -273,7 +333,7 @@ footer{
   <div class="footer-container">
     <div class="footer-section">
       <h4>Menu</h4>
-      <a href="home.html">Home</a>
+      <a href="index.html">Home</a>
       <a href="fact.html">Fact Check</a>
       <a href="#">Books</a>
       <a href="#">Research</a>
@@ -292,6 +352,12 @@ footer{
 
   <div class="footer-bottom">
     © <span id="year"></span> Pathagar Len's Fully Digital Library. All rights reserved.
+  </div>
+
+  <div class="footer-extra">
+    Last Live Update: <span id="liveDate"></span> |
+    Design by Paradip Sen Roy |
+    Total Visitors: <span id="visitCount"></span>
   </div>
 </footer>
 
@@ -313,6 +379,14 @@ menu.addEventListener("click", function(e){
 });
 
 document.getElementById("year").textContent = new Date().getFullYear();
+document.getElementById("liveDate").textContent = new Date().toLocaleString();
+
+if(!localStorage.getItem("visitCount")){
+    localStorage.setItem("visitCount", 1);
+}else{
+    localStorage.setItem("visitCount", parseInt(localStorage.getItem("visitCount")) + 1);
+}
+document.getElementById("visitCount").textContent = localStorage.getItem("visitCount");
 </script>
 
 </body>
