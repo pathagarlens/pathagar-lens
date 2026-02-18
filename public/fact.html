@@ -143,7 +143,7 @@ async function search(){
   document.getElementById("verdictBox").innerHTML = "";
   document.getElementById("loadMoreBtn").style.display="none";
 
-  const response = await fetch("http://localhost:5000/api/fact/check",{
+  const response = await fetch("http://pathagar-lens.onrender.com/api/fact/check",{
     method:"POST",
     headers:{"Content-Type":"application/json"},
     body:JSON.stringify({claim})
