@@ -33,7 +33,6 @@ header{
     z-index:1000;
 }
 
-/* LOGO */
 .logo-container{
     display:flex;
     align-items:center;
@@ -162,6 +161,22 @@ header{
     transform:translateY(-8px);
 }
 
+.feature-box a{
+    display:inline-block;
+    margin-top:15px;
+    text-decoration:none;
+    background:#144272;
+    color:white;
+    padding:10px 18px;
+    border-radius:6px;
+    font-size:14px;
+    transition:0.3s;
+}
+
+.feature-box a:hover{
+    background:#0a2540;
+}
+
 /* HOW SECTION */
 .how-section{
     background:#ffffff;
@@ -190,17 +205,7 @@ header{
     text-align:left;
 }
 
-.how-box h4{
-    margin-bottom:15px;
-    color:#144272;
-}
-
-.how-box p{
-    font-size:14px;
-    line-height:1.6;
-}
-
-/* FOOTER (Original Style Preserved) */
+/* FOOTER */
 footer{
     background:#0a2540;
     color:white;
@@ -231,11 +236,6 @@ footer{
     text-decoration:none;
     font-size:14px;
     margin-bottom:6px;
-    transition:0.3s;
-}
-
-.footer-section a:hover{
-    color:#4da6ff;
 }
 
 .footer-bottom{
@@ -246,23 +246,11 @@ footer{
     padding-top:15px;
 }
 
-/* EXTRA SMALL INFO STRIP */
 .footer-extra{
     text-align:center;
     font-size:13px;
     margin-top:10px;
     opacity:0.85;
-}
-
-/* MOBILE */
-@media(max-width:768px){
-    .hero h1{
-        font-size:28px;
-    }
-    .footer-container{
-        flex-direction:column;
-        text-align:center;
-    }
 }
 </style>
 </head>
@@ -281,8 +269,8 @@ footer{
         <div class="dropdown" id="menu">
             <a href="index.html">Home</a>
             <a href="fact.html">Fact Check</a>
-            <a href="#">Books</a>
-            <a href="#">Research</a>
+            <a href="books.html">Books</a>
+            <a href="research.html">Research</a>
             <a href="#">User Login</a>
             <a href="#" style="font-weight:600; color:#c0392b;">Admin Login</a>
         </div>
@@ -293,40 +281,63 @@ footer{
     <div class="badge">✔ Trusted Digital Knowledge Platform</div>
     <h1>Reliable Knowledge. Smarter Research.</h1>
     <p>Verify information, discover meaningful books, and access open research with confidence.</p>
-    <button onclick="location.href='index.html'">Start Your Journey</button>
+    <button onclick="location.href='fact.html'">Start Your Journey</button>
 </section>
 
 <section class="features">
+
+
     <div class="feature-box">
         <h3>Fact Verification</h3>
         <p>Analyze claims using trusted and verified information sources.</p>
+        <a href="fact.html">Access Fact Verification</a>
     </div>
+
     <div class="feature-box">
         <h3>Smart Book Discovery</h3>
         <p>Find relevant books based on topic meaning and interest.</p>
+        <a href="books.html">Explore Book Discovery</a>
     </div>
+
     <div class="feature-box">
         <h3>Research Tracking</h3>
         <p>Track open access research papers with structured filtering.</p>
+        <a href="research.html">View Research Tracking</a>
     </div>
+
+<section style="background:#ffffff; padding:90px 20px;">
+  <div style="max-width:1100px; margin:auto;">
+    <h2 style="text-align:center; font-size:30px; color:#0a2540; margin-bottom:60px;">
+      Platform Information
+    </h2>
+
+    <div style="margin-bottom:50px;">
+      <h3 style="color:#144272; margin-bottom:15px;">Fact Verification</h3>
+      <p style="line-height:1.7; font-size:15px;">
+        The Fact Verification system analyzes user-submitted claims by scanning trusted news sources and cross-checking multiple reports. 
+        It evaluates credibility patterns and presents structured results to help users make informed decisions.
+      </p>
+    </div>
+
+    <div style="margin-bottom:50px;">
+      <h3 style="color:#144272; margin-bottom:15px;">Smart Book Discovery</h3>
+      <p style="line-height:1.7; font-size:15px;">
+        The Smart Book Discovery module recommends books based on topic relevance, semantic keyword matching, and categorized subject mapping. 
+        It assists students and researchers in finding meaningful academic materials efficiently.
+      </p>
+    </div>
+
+    <div>
+      <h3 style="color:#144272; margin-bottom:15px;">Research Tracking</h3>
+      <p style="line-height:1.7; font-size:15px;">
+        Research Tracking indexes open access research papers and organizes them using structured metadata filters. 
+        Users can discover reliable research publications through categorized browsing and targeted search methods.
+      </p>
+    </div>
+  </div>
 </section>
 
-<section class="how-section">
-    <h2>How It Works</h2>
-    <div class="how-container">
-        <div class="how-box">
-            <h4>Fact Verification</h4>
-            <p>Enter a claim. The system scans trusted news sources and generates credibility-based results.</p>
-        </div>
-        <div class="how-box">
-            <h4>Smart Book Discovery</h4>
-            <p>Books are suggested using topic meaning analysis and structured categorization.</p>
-        </div>
-        <div class="how-box">
-            <h4>Research Tracking</h4>
-            <p>Open access research is indexed and filtered for easier discovery and academic use.</p>
-        </div>
-    </div>
+
 </section>
 
 <footer>
@@ -335,8 +346,8 @@ footer{
       <h4>Menu</h4>
       <a href="index.html">Home</a>
       <a href="fact.html">Fact Check</a>
-      <a href="#">Books</a>
-      <a href="#">Research</a>
+      <a href="books.html">Books</a>
+      <a href="research.html">Research</a>
       <a href="#">User Login</a>
       <a href="#">Admin Login</a>
     </div>
