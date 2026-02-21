@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Results | ResearchSphere</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Inter', sans-serif;
+  background:#f4f6fa;
+  color:#222;
+}
+h1,h2,h3{
+  font-family:'Playfair Display', serif;
+}
+a{text-decoration:none;color:#0a2a66}
+
+/* Navbar */
+.navbar{
+  background:white;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 40px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.05);
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+.nav-left{display:flex;align-items:center;}
+.nav-links a{margin-left:20px;font-weight:500;color:#222;}
+.nav-right{display:flex;align-items:center;gap:20px;}
+.login-btn{background:#0a2a66;color:white;padding:8px 14px;border-radius:6px;font-size:14px;}
+.admin-btn{background:#444;color:white;padding:8px 14px;border-radius:6px;font-size:14px;}
+.hamburger{font-size:24px;cursor:pointer;}
+
+/* Dropdown */
+.dropdown{
+  position: fixed;
+  right: 40px;
+  top: 70px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  display: none;
+  min-width: 200px;
+  z-index: 2000;
+}
+.dropdown a{
+  display:block;
+  padding:12px 15px;
+  border-bottom:1px solid #eee;
+}
+.dropdown a:hover{background:#f2f2f2}
+
+/* Search Header */
+.search-header{
+  background:#0a2a66;
+  color:white;
+  padding:50px 20px;
+  text-align:center;
+}
+.search-header input{
+  width:50%;
+  padding:12px;
+  border-radius:6px;
+  border:none;
+}
+.search-header button{
+  padding:12px 20px;
+  border:none;
+  border-radius:6px;
+  background:#ffcc00;
+  cursor:pointer;
+  font-weight:600;
+}
+
+/* Layout */
+.section{
+  max-width:1200px;
+  margin:50px auto;
+  padding:0 20px;
+  display:grid;
+  grid-template-columns:260px 1fr;
+  gap:30px;
+}
+
+/* Sidebar Filters */
+.sidebar{
+  background:white;
+  padding:25px;
+  border-radius:8px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+}
+.sidebar h3{
+  margin-top:0;
+}
+.sidebar label{
+  display:block;
+  margin:10px 0;
+  font-size:14px;
+}
+
+/* Results */
+.results-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+.results-top select{
+  padding:8px;
+  border-radius:6px;
+  border:1px solid #ddd;
+}
+
+.result-card{
+  background:white;
+  padding:25px;
+  border-radius:8px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+  margin-bottom:20px;
+}
+.result-card h3{
+  margin-top:0;
+}
+.meta{
+  font-size:13px;
+  color:#666;
+  margin-bottom:10px;
+}
+.result-card button{
+  padding:8px 14px;
+  background:#0a2a66;
+  color:white;
+  border:none;
+  border-radius:6px;
+  font-size:13px;
+  cursor:pointer;
+}
+
+/* Pagination */
+.pagination{
+  text-align:center;
+  margin-top:30px;
+}
+.pagination button{
+  padding:8px 14px;
+  margin:5px;
+  border-radius:6px;
+  border:1px solid #ddd;
+  background:white;
+  cursor:pointer;
+}
+.pagination button.active{
+  background:#0a2a66;
+  color:white;
+  border:none;
+}
+
+/* Footer */
+.footer{
+  background:#0a2a66;
+  color:white;
+  padding:50px 20px;
+  margin-top:60px;
+}
+.footer-container{
+  max-width:1100px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:30px;
+}
+.footer a{display:block;margin-bottom:8px;color:#ddd;}
+.bottom{text-align:center;margin-top:30px;font-size:14px;opacity:0.8;}
+
+@media(max-width:900px){
+  .section{
+    grid-template-columns:1fr;
+  }
+  .nav-links{display:none;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+  <div class="nav-left">
+    <h2>ResearchSphere</h2>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="journals.html">Journals</a>
+      <a href="categories.html">Categories</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+  <div class="nav-right">
+    <a href="#" class="login-btn">Login</a>
+    <a href="#" class="admin-btn">Admin Login</a>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+  </div>
+</div>
+
+<div class="dropdown" id="dropdownMenu">
+  <a href="#">Profile</a>
+  <a href="#">Saved Articles</a>
+  <a href="settings.html">Settings</a>
+  <a href="#">Admin Panel</a>
+  <a href="#">Log Out</a>
+</div>
+
+<!-- Search Header -->
+<div class="search-header">
+  <h1>Search Results</h1>
+  <p>Showing results for: <strong>"Artificial Intelligence"</strong></p>
+  <input type="text" placeholder="Refine search...">
+  <button>Search</button>
+</div>
+
+<!-- Main Section -->
+<div class="section">
+
+  <!-- Filters -->
+  <div class="sidebar">
+    <h3>Filter Results</h3>
+    <label><input type="checkbox"> Open Access</label>
+    <label><input type="checkbox"> Peer Reviewed</label>
+    <label><input type="checkbox"> Indexed</label>
+    <label><input type="checkbox"> 2024</label>
+    <label><input type="checkbox"> 2023</label>
+  </div>
+
+  <!-- Results -->
+  <div>
+
+    <div class="results-top">
+      <p>About 128 results found</p>
+      <select>
+        <option>Sort by Relevance</option>
+        <option>Newest First</option>
+        <option>Oldest First</option>
+      </select>
+    </div>
+
+    <div class="result-card">
+      <h3>Artificial Intelligence in Modern Healthcare</h3>
+      <div class="meta">2024 | Journal of Medical Informatics | Open Access</div>
+      <p>This study explores the integration of artificial intelligence systems in clinical diagnostics and patient monitoring.</p>
+      <button>View Article</button>
+    </div>
+
+    <div class="result-card">
+      <h3>Machine Learning Models for Data Analysis</h3>
+      <div class="meta">2023 | International Journal of Computer Science</div>
+      <p>Research on predictive modelling and supervised learning algorithms applied to large datasets.</p>
+      <button>View Article</button>
+    </div>
+
+    <div class="result-card">
+      <h3>Ethical Implications of AI Systems</h3>
+      <div class="meta">2022 | Social Technology Review</div>
+      <p>Discussion on policy, governance and ethical standards in artificial intelligence research.</p>
+      <button>View Article</button>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      <button class="active">1</button>
+      <button>2</button>
+      <button>3</button>
+      <button>Next</button>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div class="footer-container">
+    <div>
+      <h4>ResearchSphere</h4>
+      <p>Unified academic journal discovery platform.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="categories.html">Categories</a>
+      <a href="journals.html">Journals</a>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <a href="mailto:info@researchsphere.org">info@researchsphere.org</a>
+      <p>Kolkata, India</p>
+    </div>
+  </div>
+  <div class="bottom">
+    © 2026 ResearchSphere | All Rights Reserved
+  </div>
+</div>
+
+<script>
+function toggleMenu(){
+  var menu = document.getElementById("dropdownMenu");
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+
+document.addEventListener("click", function(event){
+  var menu = document.getElementById("dropdownMenu");
+  var hamburger = document.querySelector(".hamburger");
+  if(!menu.contains(event.target) && !hamburger.contains(event.target)){
+    menu.style.display = "none";
+  }
+});
+</script>
+
+</body>
+</html>
